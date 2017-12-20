@@ -5,15 +5,16 @@ const { isNumber } = require("../core/type-checks");
 
 const typeCheckInterfaces = {
 	Integer: isNumber,
-	double: isNumber
+	Double: isNumber
 };
 
 module.exports = generator({
 	typeCheckInterfaces,
 	supportedContentSanitizersMap: {},
-	supportedTypes: ["Integer", "int", "double"],
+	supportedTypes: ["Integer", "int", "double", "Double"],
 	renameTypesMap: {
-		int: "Integer" // TODO: add test
+		int: "Integer", // TODO: add test
+		double: "Double"
 	},
 	classValue: ({ package: pkg, name }) => `${pkg}.${name}`
 });

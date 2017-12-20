@@ -69,7 +69,7 @@ class DetoxAction {
         type: "Integer",
         value: direction
       }, {
-        type: "double",
+        type: "Double",
         value: amountInDP
       }]
     };

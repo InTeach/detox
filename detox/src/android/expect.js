@@ -90,8 +90,8 @@ class ScrollAmountAction extends Action {
       case 'down': direction = 4; break;
       default: throw new Error(`ScrollAmountAction direction must be a 'left'/'right'/'up'/'down', got ${direction}`);
     }
-    if (typeof amount !== 'number') throw new Error(`ScrollAmountAction ctor 2nd argument must be a number, got ${typeof amount}`);
-    this._call = invoke.call(invoke.Android.Class(DetoxAction), 'scrollInDirection', invoke.Android.Integer(direction), invoke.Android.Double(amount));
+
+    this._call = invoke.callDirectly(DetoxActionApi.scrollInDirection(direction, amount));
   }
 }
 
@@ -106,7 +106,8 @@ class ScrollEdgeAction extends Action {
       case 'bottom': edge = 4; break;
       default: throw new Error(`ScrollEdgeAction edge must be a 'left'/'right'/'top'/'bottom', got ${edge}`);
     }
-    this._call = invoke.call(invoke.Android.Class(DetoxAction), 'scrollToEdge', invoke.Android.Integer(edge));
+
+    this._call = invoke.callDirectly(DetoxActionApi.scrollToEdge(edge));
   }
 }
 
@@ -123,10 +124,11 @@ class SwipeAction extends Action {
       case 'down': direction = 4; break;
       default: throw new Error(`SwipeAction direction must be a 'left'/'right'/'up'/'down', got ${direction}`);
     }
+
     if (speed === 'fast') {
-      this._call = invoke.call(invoke.Android.Class(DetoxAction), 'swipeInDirection', invoke.Android.Integer(direction), invoke.Android.Boolean(true));
+      this._call = invoke.callDirectly(DetoxActionApi.swipeInDirection(direction, true));
     } else if (speed === 'slow') {
-      this._call = invoke.call(invoke.Android.Class(DetoxAction), 'swipeInDirection', invoke.Android.Integer(direction), invoke.Android.Boolean(false));
+      this._call = invoke.callDirectly(DetoxActionApi.swipeInDirection(direction, false));
     } else {
       throw new Error(`SwipeAction speed must be a 'fast'/'slow', got ${speed}`);
     }
