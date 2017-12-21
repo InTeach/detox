@@ -48,6 +48,7 @@ const contentSanitizersForType = {
 
 module.exports = generator({
 	typeCheckInterfaces,
+	contentSanitizersForFunction: {},
 	contentSanitizersForType,
 	supportedTypes: [
 		"CGFloat",

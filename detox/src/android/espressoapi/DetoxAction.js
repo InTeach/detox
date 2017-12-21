@@ -5,7 +5,15 @@
 */
 
 
-
+function sanitize_android_direction(direction) {
+	switch (direction) {
+		case 'left': return 1;
+		case 'right': return 2;
+		case 'up': return 3;
+		case 'down': return 4;
+		default: throw new Error(`direction must be a 'left'/'right'/'up'/'down', got ${direction}`);
+	}
+} 
 class DetoxAction {
   static multiClick(times) {
     if (typeof times !== "number") throw new Error("times should be a number, but got " + (times + (" (" + (typeof times + ")"))));
@@ -67,7 +75,7 @@ class DetoxAction {
       method: "scrollInDirection",
       args: [{
         type: "Integer",
-        value: direction
+        value: sanitize_android_direction(direction)
       }, {
         type: "Double",
         value: amountInDP

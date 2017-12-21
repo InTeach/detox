@@ -12,6 +12,7 @@ module.exports = function({
 	renameTypesMap,
 	supportedTypes,
 	classValue,
+	contentSanitizersForFunction,
 	contentSanitizersForType
 }) {
 	/**
@@ -130,10 +131,20 @@ module.exports = function({
 		return checks;
 	}
 
-	function addArgumentContentSanitizerCall(json) {
+	function addArgumentContentSanitizerCall(json, functionName) {
 		if (contentSanitizersForType[json.type]) {
 			globalFunctionUsage[contentSanitizersForType[json.type].name] = true;
 			return contentSanitizersForType[json.type].value(json.name);
+		}
+
+		if (
+			contentSanitizersForFunction[functionName] &&
+			contentSanitizersForFunction[functionName].argumentName === json.name
+		) {
+			globalFunctionUsage[
+				contentSanitizersForFunction[functionName].name
+			] = true;
+			return contentSanitizersForFunction[functionName].value(json.name);
 		}
 
 		return t.identifier(json.name);
@@ -162,10 +173,10 @@ module.exports = function({
 							),
 							t.objectProperty(
 								t.identifier("value"),
-								addArgumentContentSanitizerCall(arg)
+								addArgumentContentSanitizerCall(arg, json.name)
 							)
 						])
-					: addArgumentContentSanitizerCall(arg)
+					: addArgumentContentSanitizerCall(arg, json.name)
 		);
 
 		return t.returnStatement(
