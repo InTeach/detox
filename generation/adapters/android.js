@@ -10,7 +10,7 @@ const typeCheckInterfaces = {
 
 module.exports = generator({
 	typeCheckInterfaces,
-	supportedContentSanitizersMap: {},
+	contentSanitizersForType: {},
 	supportedTypes: ["Integer", "int", "double", "Double"],
 	renameTypesMap: {
 		int: "Integer", // TODO: add test

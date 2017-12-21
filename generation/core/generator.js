@@ -12,7 +12,7 @@ module.exports = function({
 	renameTypesMap,
 	supportedTypes,
 	classValue,
-	supportedContentSanitizersMap
+	contentSanitizersForType
 }) {
 	/**
 	 * the input provided by objective-c-parser looks like this:
@@ -131,16 +131,16 @@ module.exports = function({
 	}
 
 	function addArgumentContentSanitizerCall(json) {
-		if (supportedContentSanitizersMap[json.type]) {
-			globalFunctionUsage[supportedContentSanitizersMap[json.type].name] = true;
-			return supportedContentSanitizersMap[json.type].value(json.name);
+		if (contentSanitizersForType[json.type]) {
+			globalFunctionUsage[contentSanitizersForType[json.type].name] = true;
+			return contentSanitizersForType[json.type].value(json.name);
 		}
 
 		return t.identifier(json.name);
 	}
 	function addArgumentTypeSanitizer(json) {
-		if (supportedContentSanitizersMap[json.type]) {
-			return supportedContentSanitizersMap[json.type].type;
+		if (contentSanitizersForType[json.type]) {
+			return contentSanitizersForType[json.type].type;
 		}
 
 		return json.type;

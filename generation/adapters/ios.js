@@ -28,7 +28,7 @@ const typeCheckInterfaces = {
 	UIAccessibilityTraits: isArray
 };
 
-const supportedContentSanitizersMap = {
+const contentSanitizersForType = {
 	GREYDirection: {
 		type: "NSInteger",
 		name: "sanitize_greyDirection",
@@ -48,7 +48,7 @@ const supportedContentSanitizersMap = {
 
 module.exports = generator({
 	typeCheckInterfaces,
-	supportedContentSanitizersMap,
+	contentSanitizersForType,
 	supportedTypes: [
 		"CGFloat",
 		"CGPoint",
