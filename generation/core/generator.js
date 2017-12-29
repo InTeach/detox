@@ -115,7 +115,10 @@ module.exports = function({
 			args: json.args.map(argJson => sanitizeArgumentType(argJson))
 		});
 
-		const allTypeChecks = createTypeChecks(sanitizedJson).reduce(
+		const allTypeChecks = createTypeChecks(
+			sanitizedJson,
+			sanitizedJson.name
+		).reduce(
 			(carry, item) =>
 				item instanceof Array ? [...carry, ...item] : [...carry, item],
 			[]
@@ -125,8 +128,8 @@ module.exports = function({
 		return [...typeChecks, returnStatement];
 	}
 
-	function createTypeChecks(json) {
-		const checks = json.args.map(createTypeCheck);
+	function createTypeChecks(json, functionName) {
+		const checks = json.args.map(arg => createTypeCheck(arg, functionName));
 		checks.filter(check => Boolean(check));
 		return checks;
 	}
@@ -197,8 +200,13 @@ module.exports = function({
 		);
 	}
 
-	function createTypeCheck(json) {
-		const typeCheckCreator = typeCheckInterfaces[json.type];
+	function createTypeCheck(json, functionName) {
+		const optionalSanitizer = contentSanitizersForFunction[functionName];
+		const type =
+			optionalSanitizer && optionalSanitizer.argumentName === json.name
+				? optionalSanitizer.newType
+				: json.type;
+		const typeCheckCreator = typeCheckInterfaces[type];
 		const isListOfChecks = typeCheckCreator instanceof Array;
 		return isListOfChecks
 			? typeCheckCreator.map(singleCheck => singleCheck(json))

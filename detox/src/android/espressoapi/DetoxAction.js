@@ -7,11 +7,18 @@
 
 function sanitize_android_direction(direction) {
 	switch (direction) {
-		case 'left': return 1;
-		case 'right': return 2;
-		case 'up': return 3;
-		case 'down': return 4;
-		default: throw new Error(`direction must be a 'left'/'right'/'up'/'down', got ${direction}`);
+		case "left":
+			return 1;
+		case "right":
+			return 2;
+		case "up":
+			return 3;
+		case "down":
+			return 4;
+		default:
+			throw new Error(
+				`direction must be a 'left'/'right'/'up'/'down', got ${direction}`
+			);
 	}
 } 
 class DetoxAction {
@@ -65,7 +72,7 @@ class DetoxAction {
   }
 
   static scrollInDirection(direction, amountInDP) {
-    if (typeof direction !== "number") throw new Error("direction should be a number, but got " + (direction + (" (" + (typeof direction + ")"))));
+    if (typeof direction !== "string") throw new Error("direction should be a string, but got " + (direction + (" (" + (typeof direction + ")"))));
     if (typeof amountInDP !== "number") throw new Error("amountInDP should be a number, but got " + (amountInDP + (" (" + (typeof amountInDP + ")"))));
     return {
       target: {

@@ -1,18 +1,19 @@
 const t = require("babel-types");
 const generator = require("../core/generator");
 
-const { isNumber } = require("../core/type-checks");
+const { isNumber, isString } = require("../core/type-checks");
 const { callGlobal } = require("../helpers");
 
 const typeCheckInterfaces = {
 	Integer: isNumber,
-	Double: isNumber
+	Double: isNumber,
+	String: isString
 };
 
 const contentSanitizersForFunction = {
 	scrollInDirection: {
 		argumentName: "direction",
-		type: "Integer",
+		newType: "String",
 		name: "sanitize_android_direction",
 		value: callGlobal("sanitize_android_direction")
 	}
