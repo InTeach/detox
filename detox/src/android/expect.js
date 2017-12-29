@@ -106,16 +106,6 @@ class SwipeAction extends Action {
   // This implementation ignores the percentage parameter
   constructor(direction, speed, percentage) {
     super();
-    if (typeof direction !== 'string') throw new Error(`SwipeAction ctor 1st argument must be a string, got ${typeof direction}`);
-    if (typeof speed !== 'string') throw new Error(`SwipeAction ctor 2nd argument must be a string, got ${typeof speed}`);
-    switch (direction) {
-      case 'left': direction = 1; break;
-      case 'right': direction = 2; break;
-      case 'up': direction = 3; break;
-      case 'down': direction = 4; break;
-      default: throw new Error(`SwipeAction direction must be a 'left'/'right'/'up'/'down', got ${direction}`);
-    }
-
     if (speed === 'fast') {
       this._call = invoke.callDirectly(DetoxActionApi.swipeInDirection(direction, true));
     } else if (speed === 'slow') {

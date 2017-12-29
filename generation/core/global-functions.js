@@ -19,6 +19,23 @@ function sanitize_android_direction(direction) {
 	}
 } // END sanitize_android_direction
 
+function sanitize_android_edge(edge) {
+	switch (edge) {
+		case "left":
+			return 1;
+		case "right":
+			return 2;
+		case "top":
+			return 3;
+		case "bottom":
+			return 4;
+		default:
+			throw new Error(
+				`edge must be a 'left'/'right'/'top'/'bottom', got ${edge}`
+			);
+	}
+} // END sanitize_android_edge
+
 function sanitize_greyDirection(action) {
 	switch (action) {
 		case "left":
@@ -123,5 +140,6 @@ module.exports = {
 	sanitize_greyDirection,
 	sanitize_greyContentEdge,
 	sanitize_uiAccessibilityTraits,
-	sanitize_android_direction
+	sanitize_android_direction,
+	sanitize_android_edge
 };
