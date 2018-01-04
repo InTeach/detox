@@ -126,9 +126,9 @@ class AndroidDriver extends DeviceDriverBase {
 
   async findDeviceId(filter) {
     const adbDevices = await this.adb.devices();
-    console.log('adbDevices', adbDevices);
+    console.log('adbDevices', JSON.stringify(adbDevices));
     const filteredDevices = _.filter(adbDevices, filter);
-    console.log('filter', filter);
+    console.log('filter', JSON.stringify(filter));
     let adbName;
     switch (filteredDevices.length) {
       case 1:
