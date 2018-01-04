@@ -49,7 +49,7 @@ class ADB {
   }
 
   async install(deviceId, apkPath) {
-    await this.adbCmd(deviceId, `install -r -g ${apkPath}`);
+    await this.adbCmd(deviceId, `install -r ${apkPath}`);
   }
 
   async uninstall(deviceId, appId) {
