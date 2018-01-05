@@ -36,8 +36,7 @@ class AndroidDriver extends DeviceDriverBase {
     const originalApkPathObj = path.parse(originalApkPath);
     let splitPath = originalApkPathObj.dir.split(path.sep);
     splitPath.splice(splitPath.length-1 , 0, 'androidTest');
-    const testApkPath = path.join(splitPath.join(path.sep), `${originalApkPathObj.name}${originalApkPathObj.ext}`);
-
+    const testApkPath = path.join(splitPath.join(path.sep), `${originalApkPathObj.name}-androidTest${originalApkPathObj.ext}`);
     if (!fs.existsSync(testApkPath)) {
       throw new Error(`'${testApkPath}' could not be found, did you run './gradlew assembleAndroidTest' ?`);
     }
