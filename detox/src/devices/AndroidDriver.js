@@ -29,7 +29,8 @@ class AndroidDriver extends DeviceDriverBase {
 
   async installApp(deviceId, binaryPath) {
     await this.adb.install(deviceId, binaryPath);
-    await this.adb.install(deviceId, this.getTestApkPath(binaryPath));
+     const testApkPath = binaryPath.split('.apk')[0] + '-androidTest.apk';
+    await this.adb.install(deviceId, testApkPath);
   }
 
   getTestApkPath(originalApkPath) {
